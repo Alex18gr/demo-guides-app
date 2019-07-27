@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-body m-1">
+    <div *ngIf="!editMode" [innerHTML]="markdownHTML"></div>
+    <div *ngIf="editMode">
+      <textarea class="code-editor" #editor></textarea>
+    </div>
+    <hr>
+    <div *ngIf="editMode">
+      <button class="btn btn-success" (click)="onSaveMarkdown()">Save</button>
+      <button class="btn btn-danger" (click)="onCancelEditing()">Cancel</button>
+    </div>
+    <div *ngIf="!editMode">
+      <button class="btn btn-secondary" (click)="onEditStart()">Edit</button>
+    </div>
+  </div>
+</div>

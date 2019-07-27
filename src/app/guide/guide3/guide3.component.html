@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <app-markdown-viewer-editor [markdownData]="markdownData"></app-markdown-viewer-editor>
+      <hr>
+      <app-code-editor [isDisabled]="true" [defaultValue]="'let i = 4;'" [language]="'javascript'" [title]="'This is a code snippet...'"></app-code-editor>
+      <hr>
+      <app-github-viewer title="Atom GitHub Repository" description="this is description paragraph...."></app-github-viewer>
+<!--      <iframe src="https://stackblitz.com/edit/angular-y3mwwb?embed=1&file=src/app/app.component.ts"></iframe>-->
+    </div>
+  </div>
+</div>
