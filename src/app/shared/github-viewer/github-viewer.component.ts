@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import * as Octokit from '@octokit/rest';
+// import * as Octokit from '@octokit/rest';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-github-viewer',
@@ -9,23 +10,25 @@ import * as Octokit from '@octokit/rest';
 export class GithubViewerComponent implements OnInit {
   @Input() title: string;
   @Input() description: string;
-  private octokit: Octokit;
+  // private octokit: Octokit;
   private data: any;
   private isLoaded = false;
+  private repoUrl = 'https://api.github.com/';
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   ngOnInit() {
-    this.octokit = new Octokit();
+    // this.octokit = new Octokit();
     // Alex18gr/users_crud
-    this.octokit.repos.get({
-      owner: 'atom',
-      repo: 'atom'
-    }).then((data) => {
-      console.log(data);
-      this.data = data;
-      this.isLoaded = true;
-    });
+    // this.octokit.repos.get({
+    //     //   owner: 'atom',
+    //     //   repo: 'atom'
+    //     // }).then((data) => {
+    //     //   console.log(data);
+    //     //   this.data = data;
+    //     //   this.isLoaded = true;
+    //     // });
+    this.getRepositoryDetails('atom', 'atom');
   }
 
   private getDateFromString(date: string) {
@@ -40,7 +43,16 @@ export class GithubViewerComponent implements OnInit {
   navigateToRepository() {
     if (this.isLoaded) {
       // window.location.href = this.data.data.html_url;
-      window.open(this.data.data.html_url, '_blank');
+      window.open(this.data.html_url, '_blank');
     }
+  }
+
+  private getRepositoryDetails(owner: string, repoName: string) {
+    this.httpClient.get(this.repoUrl + 'repos/' + owner + '/' + repoName + '')
+      .subscribe(data => {
+        console.log(data);
+        this.data = data;
+        this.isLoaded = true;
+      });
   }
 }

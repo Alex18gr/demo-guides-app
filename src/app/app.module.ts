@@ -13,6 +13,8 @@ import {FormsModule} from '@angular/forms';
 import { MarkdownViewerEditorComponent } from './shared/markdown-viewer-editor/markdown-viewer-editor.component';
 import { GithubViewerComponent } from './shared/github-viewer/github-viewer.component';
 import {HttpClientModule} from '@angular/common/http';
+import { PdfViewerComponent } from './shared/pdf-viewer/pdf-viewer.component';
+import {Http, HttpModule} from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import {HttpClientModule} from '@angular/common/http';
     Guide3Component,
     CodeEditorComponent,
     MarkdownViewerEditorComponent,
-    GithubViewerComponent
+    GithubViewerComponent,
+    PdfViewerComponent
   ],
   imports: [
     BrowserModule,
