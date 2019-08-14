@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 // import * as Octokit from '@octokit/rest';
 import {HttpClient} from '@angular/common/http';
 
@@ -7,9 +7,11 @@ import {HttpClient} from '@angular/common/http';
   templateUrl: './github-viewer.component.html',
   styleUrls: ['./github-viewer.component.css']
 })
-export class GithubViewerComponent implements OnInit {
+export class GithubViewerComponent implements OnInit, OnChanges {
   @Input() title: string;
   @Input() description: string;
+  @Input() repoOwner: string;
+  @Input() repoName: string;
   // private octokit: Octokit;
   private data: any;
   private isLoaded = false;
@@ -28,7 +30,9 @@ export class GithubViewerComponent implements OnInit {
     //     //   this.data = data;
     //     //   this.isLoaded = true;
     //     // });
-    this.getRepositoryDetails('atom', 'atom');
+    if (this.repoName && this.repoOwner) {
+      this.getRepositoryDetails(this.repoOwner, this.repoName);
+    }
   }
 
   private getDateFromString(date: string) {
@@ -54,5 +58,14 @@ export class GithubViewerComponent implements OnInit {
         this.data = data;
         this.isLoaded = true;
       });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.repoOwner && changes.repoName &&
+      (changes.repoOwner.previousValue !== changes.repoOwner.currentValue ||
+      changes.repoName.previousValue !== changes.repoName.currentValue)) {
+      this.isLoaded = false;
+      this.getRepositoryDetails(this.repoOwner, this.repoName);
+    }
   }
 }

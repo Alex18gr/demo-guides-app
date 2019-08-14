@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import * as PdfJs from 'node_modules/pdfjs-dist/build/pdf.js';
 
 @Component({
@@ -6,9 +6,15 @@ import * as PdfJs from 'node_modules/pdfjs-dist/build/pdf.js';
   templateUrl: './pdf-viewer.component.html',
   styleUrls: ['./pdf-viewer.component.css']
 })
-export class PdfViewerComponent implements OnInit, AfterViewChecked {
-  @ViewChild('canvasContainer') pdfViewContainer: ElementRef;
+export class PdfViewerComponent implements OnInit, AfterViewChecked, OnChanges {
+  @ViewChild('canvasContainer', {static: false}) pdfViewContainer: ElementRef;
+  @Input() title: string;
+  @Input() description: string;
   @Input() pagesList: number[];
+  @Input() pdfBlobData: Blob;
+  @Input() url = './assets/chicken.pdf';
+  @Input() pdfData: ArrayBuffer;
+  @Input() loadMode = 'url';
   private pdfDoc = null;
   private pageNum = 1;
   private pageIsRendering = false;
@@ -16,7 +22,6 @@ export class PdfViewerComponent implements OnInit, AfterViewChecked {
   private scale = 1.5;
   private canvas: any;
   private pdfViewerContext: any;
-  private url = './assets/chicken.pdf';
   private totalPages: number;
 
   constructor() { }
@@ -25,20 +30,45 @@ export class PdfViewerComponent implements OnInit, AfterViewChecked {
     this.initPdfViewer();
   }
 
-  private initPdfViewer() {
+  removeElementChildren(element: ElementRef) {
+    const myNode = element.nativeElement;
+    while (myNode.firstChild) {
+      myNode.removeChild(myNode.firstChild);
+    }
+  }
+
+  setViewDocument(pdfDocument) {
+    console.log(pdfDocument);
+    this.pdfDoc = pdfDocument;
+    this.totalPages = pdfDocument.numPages;
+
+    // this.renderPage(1);
+    if (!this.pagesList) {
+      this.renderPages(this.range(1, this.totalPages));
+    } else {
+      this.renderPages(this.pagesList);
+    }
+
+  }
+
+  private loadPdfUrl() {
     PdfJs.getDocument(this.url).promise.then(pdfDocument => {
-      console.log(pdfDocument);
-      this.pdfDoc = pdfDocument;
-      this.totalPages = pdfDocument.numPages;
-
-      // this.renderPage(1);
-      if (!this.pagesList) {
-        this.renderPages(this.range(1, this.totalPages));
-      } else {
-        this.renderPages(this.pagesList);
-      }
-
+      this.setViewDocument(pdfDocument);
     });
+  }
+
+  private loadPdfData() {
+    PdfJs.getDocument({data: this.pdfData}).promise.then(pdfDocument => {
+      this.setViewDocument(pdfDocument);
+    });
+  }
+
+  private initPdfViewer() {
+    if (this.loadMode === 'url') {
+      this.loadPdfUrl();
+    } else if (this.loadMode === 'data') {
+      this.loadPdfData();
+    }
   }
 
   renderPages(pagesList: number[]) {
@@ -120,5 +150,14 @@ export class PdfViewerComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked(): void {
 
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    if ((changes.pdfData || changes.url) &&
+      (changes.pdfData.currentValue !== changes.pdfData.previousValue ||
+        changes.url.currentValue !== changes.url.previousValue)) {
+      this.initPdfViewer();
+    }
   }
 }

@@ -1,14 +1,22 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
+      <div class="jumbotron">
+        <h1>Temp Guide</h1>
+        <p>This is a temp guide...</p>
+      </div>
       <app-markdown-viewer-editor [markdownData]="markdownData"></app-markdown-viewer-editor>
       <hr>
       <app-code-editor [isDisabled]="true" [defaultValue]="'let i = 4;'" [language]="'javascript'" [title]="'This is a code snippet...'"></app-code-editor>
       <hr>
-      <app-github-viewer title="Atom GitHub Repository" description="this is description paragraph...."></app-github-viewer>
+      <app-github-viewer repoName="atom" repoOwner="atom" title="Atom GitHub Repository" description="this is description paragraph...."></app-github-viewer>
 <!--      <iframe src="https://stackblitz.com/edit/angular-y3mwwb?embed=1&file=src/app/app.component.ts"></iframe>-->
       <hr>
-      <app-pdf-viewer></app-pdf-viewer>
+      <app-pdf-viewer [pdfBlobData]="blobData" [pdfData]="pdfData" title="The Atom repository" description="This is the atom project GitHub repository..."></app-pdf-viewer>
+      <hr>
+      <div class="m-4 py-2">
+        <button class="btn btn-outline-primary" (click)="openAddResourceDialog()">Add new resource</button>
+      </div>
     </div>
   </div>
 </div>

@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="jumbotron">
+        <h1>{{guideData.name}}</h1>
+        <p>{{guideData.description}}</p>
+      </div>
+
+      <!-- The guide resources list -->
+      <div *ngIf="guideData.resources.length > 0">
+        <div *ngFor="let res of guideData.resources">
+          <app-dynamic-guide-resource [resource]="res"></app-dynamic-guide-resource>
+        </div>
+      </div>
+
+      <!-- Guide handle buttons -->
+      <div>
+        <button class="btn btn-outline-primary">Add new Resource</button>
+        <button class="btn btn-outline-primary" (click)="onEditOrder()">Edit Order</button>
+      </div>
+      <div class="m-3 p-2 rounded border-info" *ngIf="editingOrder">
+        <h1>Edit Resources Order</h1>
+        <hr>
+        <div class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
+          <div class="example-box" cdkDrag *ngFor="let resource of editGuideOrderData">{{resource.name}}</div>
+        </div>
+        <hr>
+        <button class="btn btn-outline-success my-3" (click)="onSaveOrder()">Save</button>
+        <button class="btn btn-outline-warning" (click)="onCancelEditOrder()">Revert</button>
+      </div>
+    </div>
+  </div>
+</div>

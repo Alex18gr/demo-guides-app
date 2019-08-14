@@ -1,9 +1,9 @@
 <div class="card">
-  <div class="card-header">
-
+  <div class="card-header" *ngIf="description || title">
+    <strong *ngIf="title">{{title}}</strong>
+    <p class="mb-0" *ngIf="description">{{description}}</p>
   </div>
   <div class="card-body m-1">
     <div #canvasContainer></div>
   </div>
 </div>
-

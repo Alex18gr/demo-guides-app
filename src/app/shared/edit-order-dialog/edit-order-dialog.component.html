@@ -1,0 +1,6 @@
+<p>
+  edit-order-dialog works!
+</p>
+<div class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
+  <div class="example-box" cdkDrag *ngFor="let resource of listData">{{resource.name}}</div>
+</div>

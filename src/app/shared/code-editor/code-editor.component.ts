@@ -2,14 +2,16 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import * as CodeMirror from 'node_modules/codemirror/lib/codemirror';
 import {NgForm} from '@angular/forms';
 
+
+
 @Component({
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
   styleUrls: ['./code-editor.component.css']
 })
 export class CodeEditorComponent implements OnInit {
-  @ViewChild('editor') editorElementRef: ElementRef;
-  @ViewChild('editForm') editForm: NgForm;
+  @ViewChild('editor', {static: false}) editorElementRef: ElementRef;
+  @ViewChild('editForm', {static: false}) editForm: NgForm;
   @Input() isDisabled = false;
   @Input() defaultValue: string = null;
   @Input() description = '';

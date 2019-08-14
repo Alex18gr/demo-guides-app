@@ -1,0 +1,34 @@
+<div [ngSwitch]="resource.type" *ngIf="resource">
+
+  <app-markdown-viewer-editor
+    *ngSwitchCase="'RES_MD'"
+    [markdownData]="resource.resourceData.markdownData"
+  >
+  </app-markdown-viewer-editor>
+
+  <app-code-editor
+    *ngSwitchCase="'RES_CODE'"
+    [defaultValue]="resource.resourceData.value"
+    [language]="resource.resourceData.language"
+    [title]="resource.resourceData.title"
+  >
+  </app-code-editor>
+
+  <app-github-viewer
+    *ngSwitchCase="'RES_REPO'"
+    [repoName]="resource.resourceData.repo_name"
+    [repoOwner]="resource.resourceData.repo_owner"
+    [title]="resource.name"
+    [description]="resource.resourceData.description">
+  </app-github-viewer>
+
+  <app-pdf-viewer
+    *ngSwitchCase="'RES_PDF'"
+    [url]="resource.resourceData.pdfResourceUrl"
+    [title]="resource.resourceData.title"
+    [description]="resource.resourceData.description">
+  </app-pdf-viewer>
+
+  <hr>
+
+</div>

@@ -14,7 +14,12 @@ import { MarkdownViewerEditorComponent } from './shared/markdown-viewer-editor/m
 import { GithubViewerComponent } from './shared/github-viewer/github-viewer.component';
 import {HttpClientModule} from '@angular/common/http';
 import { PdfViewerComponent } from './shared/pdf-viewer/pdf-viewer.component';
-import {Http, HttpModule} from '@angular/http';
+import {MaterialModule} from './material/material.module';
+import { ResourcesDialogComponent } from './shared/resources-dialog/resources-dialog.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { DynamicGuideComponent } from './shared/dynamic-guide/dynamic-guide.component';
+import { DynamicGuideResourceComponent } from './shared/dynamic-guide/dynamic-guide-resource/dynamic-guide-resource.component';
+import { EditOrderDialogComponent } from './shared/edit-order-dialog/edit-order-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,13 +32,23 @@ import {Http, HttpModule} from '@angular/http';
     CodeEditorComponent,
     MarkdownViewerEditorComponent,
     GithubViewerComponent,
-    PdfViewerComponent
+    PdfViewerComponent,
+    ResourcesDialogComponent,
+    DynamicGuideComponent,
+    DynamicGuideResourceComponent,
+    EditOrderDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule,
+    BrowserAnimationsModule
+  ],
+  entryComponents: [
+    ResourcesDialogComponent,
+    EditOrderDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

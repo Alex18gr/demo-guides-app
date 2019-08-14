@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Resource Type</mat-label>
+    <mat-select (selectionChange)="onResourceTypeSelectionChanged($event)">
+      <mat-option *ngFor="let res of resourceTypes" [value]="res.value">
+        {{res.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf="selection">
+    <hr>
+    <p *ngIf="selection === 'RES_CODE'">Code...</p>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button class="btn btn-outline-primary my-1" (click)="onNoClick()">No Thanks</button>
+  <button class="btn btn-outline-danger my-1" [mat-dialog-close]="data.animal">Ok</button>
+</div>

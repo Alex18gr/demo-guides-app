@@ -1,6 +1,7 @@
 import {AfterViewChecked, Component, ElementRef, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
 import * as MarkdownIt from 'node_modules/markdown-it/dist/markdown-it.js';
 import * as CodeMirror from 'node_modules/codemirror/lib/codemirror';
+import * as hljs from 'node_modules/highlight.js/lib/highlight.js';
 
 @Component({
   selector: 'app-markdown-viewer-editor',
@@ -8,8 +9,8 @@ import * as CodeMirror from 'node_modules/codemirror/lib/codemirror';
   styleUrls: ['./markdown-viewer-editor.component.css']
 })
 export class MarkdownViewerEditorComponent implements OnInit, AfterViewChecked {
-  @ViewChild('markdownView') mdViewElement: ElementRef;
-  @ViewChild('editor') editorElementRef: ElementRef;
+  @ViewChild('markdownView', {static: false}) mdViewElement: ElementRef;
+  @ViewChild('editor', {static: false}) editorElementRef: ElementRef;
   @Input() markdownData: string;
   private markdownView: MarkdownIt;
   private markdownHTML = '<h1>HELLO WORLD!!!</h1>';
@@ -24,7 +25,18 @@ export class MarkdownViewerEditorComponent implements OnInit, AfterViewChecked {
   }
 
   initMarkdown() {
-    this.markdownView = new MarkdownIt();
+    this.markdownView = new MarkdownIt({
+      highlight: (str, lang) => {
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return '<pre class="hljs"><code>' +
+              hljs.highlight(lang, str, true).value +
+              '</code></pre>';
+          } catch (__) {}
+        }
+        return ''; // use external default escaping
+      }
+    });
     const mdData = this.markdownView.render(this.markdownData);
     // const mdElement = this.renderer.createElement(mdData);
     this.markdownHTML = mdData;
