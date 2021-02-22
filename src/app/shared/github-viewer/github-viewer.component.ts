@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
 @Component({
   selector: 'app-github-viewer',
   templateUrl: './github-viewer.component.html',
-  styleUrls: ['./github-viewer.component.css']
+  styleUrls: ['./github-viewer.component.scss']
 })
 export class GithubViewerComponent implements OnInit, OnChanges {
   @Input() title: string;
@@ -14,7 +14,7 @@ export class GithubViewerComponent implements OnInit, OnChanges {
   @Input() repoName: string;
   // private octokit: Octokit;
   private data: any;
-  private isLoaded = false;
+  isLoaded = false;
   private repoUrl = 'https://api.github.com/';
 
   constructor(private httpClient: HttpClient) { }

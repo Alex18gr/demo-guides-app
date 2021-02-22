@@ -4,7 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef, MatSelectChange} from '@
 @Component({
   selector: 'app-resources-dialog',
   templateUrl: './resources-dialog.component.html',
-  styleUrls: ['./resources-dialog.component.css']
+  styleUrls: ['./resources-dialog.component.scss']
 })
 export class ResourcesDialogComponent implements OnInit {
   resourceTypes: {value: string, viewValue: string}[] = [

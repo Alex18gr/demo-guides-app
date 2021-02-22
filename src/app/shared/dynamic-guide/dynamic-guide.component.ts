@@ -9,11 +9,11 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-dynamic-guide',
   templateUrl: './dynamic-guide.component.html',
-  styleUrls: ['./dynamic-guide.component.css']
+  styleUrls: ['./dynamic-guide.component.scss']
 })
 export class DynamicGuideComponent implements OnInit {
   @Input() guideData: GuideData;
-  private editingOrder = false;
+  editingOrder = false;
   editGuideOrderData: any[];
 
   constructor(private dialog: MatDialog) { }

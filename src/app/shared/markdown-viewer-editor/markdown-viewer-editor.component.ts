@@ -6,16 +6,16 @@ import * as hljs from 'node_modules/highlight.js/lib/highlight.js';
 @Component({
   selector: 'app-markdown-viewer-editor',
   templateUrl: './markdown-viewer-editor.component.html',
-  styleUrls: ['./markdown-viewer-editor.component.css']
+  styleUrls: ['./markdown-viewer-editor.component.scss']
 })
 export class MarkdownViewerEditorComponent implements OnInit, AfterViewChecked {
-  @ViewChild('markdownView', {static: false}) mdViewElement: ElementRef;
-  @ViewChild('editor', {static: false}) editorElementRef: ElementRef;
+  @ViewChild('markdownView') mdViewElement: ElementRef;
+  @ViewChild('editor') editorElementRef: ElementRef;
   @Input() markdownData: string;
   private markdownView: MarkdownIt;
   private markdownHTML = '<h1>HELLO WORLD!!!</h1>';
   private mdEditor: MarkdownIt;
-  private editMode = false;
+  editMode = false;
 
   constructor(private renderer: Renderer2) { }
 

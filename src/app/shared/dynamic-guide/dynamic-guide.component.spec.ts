@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DynamicGuideComponent } from './dynamic-guide.component';
 
@@ -6,7 +6,7 @@ describe('DynamicGuideComponent', () => {
   let component: DynamicGuideComponent;
   let fixture: ComponentFixture<DynamicGuideComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DynamicGuideComponent ]
     })

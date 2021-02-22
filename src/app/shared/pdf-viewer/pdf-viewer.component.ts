@@ -4,10 +4,10 @@ import * as PdfJs from 'node_modules/pdfjs-dist/build/pdf.js';
 @Component({
   selector: 'app-pdf-viewer',
   templateUrl: './pdf-viewer.component.html',
-  styleUrls: ['./pdf-viewer.component.css']
+  styleUrls: ['./pdf-viewer.component.scss']
 })
 export class PdfViewerComponent implements OnInit, AfterViewChecked, OnChanges {
-  @ViewChild('canvasContainer', {static: false}) pdfViewContainer: ElementRef;
+  @ViewChild('canvasContainer') pdfViewContainer: ElementRef;
   @Input() title: string;
   @Input() description: string;
   @Input() pagesList: number[];

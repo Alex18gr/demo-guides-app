@@ -7,11 +7,11 @@ import {NgForm} from '@angular/forms';
 @Component({
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
-  styleUrls: ['./code-editor.component.css']
+  styleUrls: ['./code-editor.component.scss']
 })
 export class CodeEditorComponent implements OnInit {
-  @ViewChild('editor', {static: false}) editorElementRef: ElementRef;
-  @ViewChild('editForm', {static: false}) editForm: NgForm;
+  @ViewChild('editor') editorElementRef: ElementRef;
+  @ViewChild('editForm') editForm: NgForm;
   @Input() isDisabled = false;
   @Input() defaultValue: string = null;
   @Input() description = '';
