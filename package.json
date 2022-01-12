@@ -29,7 +29,7 @@
     "jquery": "^3.5.1",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.21",
-    "markdown-it": "^9.1.0",
+    "markdown-it": "^12.3.2",
     "pdfjs-dist": "^2.6.347",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
